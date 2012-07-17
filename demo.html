@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <script src="javascripts/jquery.min.js"></script>
+    <script src="javascripts/jquery.pingrid.js"></script>
+  </head>
+  <body>
+    <style>
+      #container {
+        width:600px;
+        position:relative;
+        border:1px solid #000;
+        float:left;
+      }
+      #controls {
+        float:left;
+      }
+    </style>
+
+    <div id="container"></div>
+    <div id="controls">
+      <button class="pg-add-btn">Add Boxes</div>
+      <button class="pg-clear-btn">Clear</div>
+    </div>
+
+    <script type="text/javascript">
+      //generate random boxes
+      function generateBoxes(n) {
+        var boxes = [];
+        for(var i=0; i < n; i++) {
+          var newBox = $("<div></div>");
+          newBox.css({
+            border: "1px solid #ccc",
+            height: (Math.round((Math.random()*100)) + 100)+"px" //random height
+          });
+          boxes.push(newBox);
+        }
+        return boxes;
+      }
+
+      function initPinGrid() {
+        // initialize pingrid
+        $("#container").pinGrid("initialize",{
+          colPadLeft: 4,
+          colPadRight: 4,
+          boxMarginTop: 8
+        });
+      }
+
+      $(".pg-clear-btn").live("click",function(){
+        initPinGrid();
+        $("#container").css("height",0);
+      });
+      $(".pg-add-btn").live("click",function(){
+        var boxes = generateBoxes(5);
+        $("#container").pinGrid("append", {collection:boxes});
+      });
+      initPinGrid();
+    </script>
+  </body>
+</html>

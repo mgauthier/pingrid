@@ -1,3 +1,8 @@
+REQUIREMENTS - Be sure to include these files above jquery.pingrid :
+* JQuery (http://jquery.com/)
+* Undersore JS (https://github.com/documentcloud/underscore/)
+* ImagesLoaded (https://github.com/desandro/imagesloaded/)
+
 PinGrid
 =======
 

@@ -21,7 +21,7 @@ var methods = {
 
     if(options.fluid) {
       var self = this;
-      $(window).smartresize(function(){ methods[ "refresh" ].apply( self ) });
+      $(window).smartresize(_.debounce(function(){ methods[ "refresh" ].apply( self ) },100));
     }
   },
   //append items to collection and position only those items
@@ -30,11 +30,15 @@ var methods = {
     for(var i=0; i< options.collection.length; i++) {
       $(this).data('pingrid').collection.push(options.collection[i]);
     }
-    //add elements to container
-    for(var i=0; i<options.collection.length; i++) {
-      $(options.collection[i]).appendTo($(this));
-    }
-    methods[ "position_elements" ].apply( this, [{collection:options.collection}]);
+
+    var self = this;
+    options.collection.imagesLoaded(function(){
+      //add elements to container
+      for(var i=0; i<options.collection.length; i++) {
+        $(options.collection[i]).appendTo($(self));
+      }
+      methods[ "position_elements" ].apply( self, [{collection:options.collection}]);
+    });
   },
   //reposition all elements in data collection
   refresh: function() {
